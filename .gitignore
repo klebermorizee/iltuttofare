@@ -1,0 +1,42 @@
+# Pasta do Visual Studio
+.vs/
+
+# Pastas de Build
+[Bb]in/
+[Oo]bj/
+
+# Arquivos de usuário específicos
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Outros
+*.DotSettings.user
+*.psess
+*.vspx
+*~
+*_i.c
+*_p.c
+*_i.h
+*.ilk
+*.meta
+*.obj
+*.pch
+*.pdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
+*.log
+*.vspscc
+*.vssscc
+*.builds
+*.pidb
+*.log
+*.scc
