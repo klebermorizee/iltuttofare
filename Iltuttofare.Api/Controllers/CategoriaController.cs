@@ -27,5 +27,66 @@ namespace Iltuttofare.Api.Controllers
 
             return Ok(categorias);
         }
+
+        [HttpGet("categorias-com-profissionais")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetCategoriasComProfissionais()
+        {
+            var categorias = await _context.Categorias
+                .Include(c => c.Subcategorias)
+                    .ThenInclude(s => s.ProfissionalSubcategorias)
+                        .ThenInclude(ps => ps.Profissional)
+                .Select(c => new
+                {
+                    c.Id,
+                    c.Nome,
+                    Subcategorias = c.Subcategorias.Select(s => new
+                    {
+                        s.Id,
+                        s.Nome,
+                        Profissionais = s.ProfissionalSubcategorias.Select(ps => new
+                        {
+                            ps.Profissional.Id,
+                            ps.Profissional.NomeCompleto,
+                            ps.Profissional.Email,
+                            ps.Profissional.Telefone
+                        }).Distinct()
+                    })
+                })
+                .ToListAsync();
+
+            return Ok(categorias);
+        }
+
+        [HttpGet("categorias-com-subcategorias-e-profissionais")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetCategoriasComSubcategoriasEProfissionais()
+        {
+            var categorias = await _context.Categorias
+                .Include(c => c.Subcategorias)
+                    .ThenInclude(s => s.ProfissionalSubcategorias)
+                        .ThenInclude(ps => ps.Profissional)
+                .Select(c => new
+                {
+                    c.Id,
+                    c.Nome,
+                    Subcategorias = c.Subcategorias.Select(s => new
+                    {
+                        s.Id,
+                        s.Nome,
+                        Profissionais = s.ProfissionalSubcategorias.Select(ps => new
+                        {
+                            ps.Profissional.Id,
+                            ps.Profissional.NomeCompleto,
+                            ps.Profissional.Telefone,
+                            ps.Profissional.Email
+                        }).Distinct()
+                    })
+                })
+                .ToListAsync();
+
+            return Ok(categorias);
+        }
+
     }
 }
