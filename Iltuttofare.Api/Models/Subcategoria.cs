@@ -8,5 +8,7 @@
 
         public Categoria Categoria { get; set; }
         public ICollection<ProfissionalSubcategoria> ProfissionalSubcategorias { get; set; }
+        public ICollection<Profissional> Profissionais { get; set; } = new List<Profissional>();
+
     }
 }

@@ -85,6 +85,9 @@ namespace Iltuttofare.Api.Migrations
                     b.Property<int>("SubcategoriaId")
                         .HasColumnType("integer");
 
+                    b.Property<DateTime>("DataCadastro")
+                        .HasColumnType("timestamp with time zone");
+
                     b.HasKey("ProfissionalId", "SubcategoriaId");
 
                     b.HasIndex("SubcategoriaId");
@@ -145,6 +148,21 @@ namespace Iltuttofare.Api.Migrations
                     b.ToTable("Subcategorias");
                 });
 
+            modelBuilder.Entity("ProfissionalSubcategoria", b =>
+                {
+                    b.Property<int>("ProfissionaisId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SubcategoriasId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("ProfissionaisId", "SubcategoriasId");
+
+                    b.HasIndex("SubcategoriasId");
+
+                    b.ToTable("ProfissionalSubcategoria");
+                });
+
             modelBuilder.Entity("Iltuttofare.Api.Models.ProfissionalSubcategoria", b =>
                 {
                     b.HasOne("Iltuttofare.Api.Models.Profissional", "Profissional")
@@ -173,6 +191,21 @@ namespace Iltuttofare.Api.Migrations
                         .IsRequired();
 
                     b.Navigation("Categoria");
+                });
+
+            modelBuilder.Entity("ProfissionalSubcategoria", b =>
+                {
+                    b.HasOne("Iltuttofare.Api.Models.Profissional", null)
+                        .WithMany()
+                        .HasForeignKey("ProfissionaisId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Iltuttofare.Api.Models.Subcategoria", null)
+                        .WithMany()
+                        .HasForeignKey("SubcategoriasId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Iltuttofare.Api.Models.Categoria", b =>

@@ -16,6 +16,8 @@ namespace Iltuttofare.Api.Models
         public DateTime? DataNascimento { get; set; }
         public string? Genero { get; set; }
         public ICollection<ProfissionalSubcategoria> ProfissionalSubcategorias { get; set; }
+        public ICollection<Subcategoria> Subcategorias { get; set; } = new List<Subcategoria>();
+
 
     }
 }

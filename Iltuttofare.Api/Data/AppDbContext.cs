@@ -19,8 +19,28 @@ namespace Iltuttofare.Api.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            /* modelBuilder.Entity<ProfissionalSubcategoria>()
+                .HasKey(ps => new { ps.ProfissionalId, ps.SubcategoriaId });
+
+            modelBuilder.Entity<Profissional>()
+                .HasMany(p => p.Subcategorias)
+                .WithMany(s => s.Profissionais)
+                .UsingEntity(j => j.ToTable("ProfissionalSubcategorias"));*/
             modelBuilder.Entity<ProfissionalSubcategoria>()
                 .HasKey(ps => new { ps.ProfissionalId, ps.SubcategoriaId });
+
+            modelBuilder.Entity<ProfissionalSubcategoria>()
+                .HasOne(ps => ps.Profissional)
+                .WithMany(p => p.ProfissionalSubcategorias)
+                .HasForeignKey(ps => ps.ProfissionalId);
+
+            modelBuilder.Entity<ProfissionalSubcategoria>()
+                .HasOne(ps => ps.Subcategoria)
+                .WithMany(s => s.ProfissionalSubcategorias)
+                .HasForeignKey(ps => ps.SubcategoriaId);
+
+
+
         }
 
 
